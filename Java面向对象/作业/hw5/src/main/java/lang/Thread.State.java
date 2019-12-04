@@ -1,0 +1,7 @@
+package lang;
+
+/**
+ */
+enum State {
+}
+

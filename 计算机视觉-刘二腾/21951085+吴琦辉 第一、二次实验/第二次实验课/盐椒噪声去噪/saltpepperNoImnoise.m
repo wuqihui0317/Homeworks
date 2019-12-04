@@ -1,0 +1,29 @@
+clc;clear;
+%读入图像
+I1=imread('goose.jpg');
+subplot(2,3,1);imshow(I1);title('原始图像');
+%转成灰度图像
+[width,height,z]=size(I1);
+if(z>1)
+    I=rgb2gray(I1);
+end
+subplot(2,3,2);imshow(I);title('灰度图像');
+J=I;
+%加入椒盐噪声
+k1=0.1;
+k2=0.3;
+a1=rand(width,height)<k1;
+a2=rand(width,height)<k2;
+J(a1&a2)=0;
+J(a1& ~a2)=255;
+%J=imnoise(I,'salt & pepper',0.004);
+subplot(2,3,3);imshow(J);title('加入椒盐噪声之后的图像');
+%中值滤波
+x1=medfilt2(J,[5,5]);
+subplot(2,3,4);imshow(x1);title('中值滤波后的图像');
+%均值滤波
+x2=filter2(fspecial('average',3),J)/255;
+subplot(2,3,5);imshow(x2);title('均值滤波后的图像');
+%高斯滤波
+x3=imfilter(J,fspecial('gaussian',[3,3],1),'replicate');
+subplot(2,3,6);imshow(x3);title('高斯滤波后的图像');

@@ -1,0 +1,7 @@
+package lang;
+
+/**
+ */
+interface Cloneable {
+}
+
